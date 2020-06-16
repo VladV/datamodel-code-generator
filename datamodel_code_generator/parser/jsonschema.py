@@ -158,7 +158,7 @@ class JsonSchemaParser(Parser):
         if obj.type is None:
             raise ValueError(f'invalid schema object {obj}')
         if isinstance(obj.type, list):
-            types: List[str] = [t for t in obj.type if t != 'null']
+            types: List[str] = obj.type
             format_ = 'default'
         else:
             types = [obj.type]
@@ -269,7 +269,6 @@ class JsonSchemaParser(Parser):
             name,
             fields=fields,
             base_classes=[b.type for b in base_classes],
-            auto_import=False,
             custom_base_class=self.base_class,
             custom_template_dir=self.custom_template_dir,
             extra_template_data=self.extra_template_data,
