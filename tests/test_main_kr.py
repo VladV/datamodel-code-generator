@@ -344,7 +344,7 @@ from typing import Any, Dict, List, Optional, Union
 from pydantic import BaseModel
 
 
-class Species(Enum):
+class Species(str, Enum):
     dog = 'dog'
     cat = 'cat'
     snake = 'snake'

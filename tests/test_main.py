@@ -321,7 +321,7 @@ def test_main_autodetect():
 
 from __future__ import annotations
 
-from typing import Any, List, Optional
+from typing import List, Optional
 
 from pydantic import BaseModel, Field, conint
 
@@ -333,7 +333,7 @@ class Person(BaseModel):
         None, description='Age in years which must be equal to or greater than zero.'
     )
     friends: Optional[List] = None
-    comment: Optional[Any] = None
+    comment: Optional[None] = None
 '''
         )
 
@@ -388,7 +388,7 @@ def test_main_jsonschema():
 
 from __future__ import annotations
 
-from typing import Any, List, Optional
+from typing import List, Optional
 
 from pydantic import BaseModel, Field, conint
 
@@ -400,7 +400,7 @@ class Person(BaseModel):
         None, description='Age in years which must be equal to or greater than zero.'
     )
     friends: Optional[List] = None
-    comment: Optional[Any] = None
+    comment: Optional[None] = None
 '''
         )
     with pytest.raises(SystemExit):
@@ -644,7 +644,7 @@ from typing import Any, Dict, List, Optional, Union
 from pydantic import BaseModel
 
 
-class Species(Enum):
+class Species(str, Enum):
     dog = 'dog'
     cat = 'cat'
     snake = 'snake'
