@@ -229,6 +229,14 @@ class JsonSchemaParser(Parser):
                         imports_=[Import(from_='typing', import_='List')],
                     )
                 )
+            elif item.enum:
+                singular_name = item.title or get_singular_name(name, 'Enum')
+                enum = self.parse_enum(singular_name, item)
+                data_types.append(
+                    self.data_type(
+                        type=enum.name, ref=True, version_compatible=True
+                    )
+                )
             else:
                 name = self.get_class_name(name, unique=False)
                 singular_name = get_singular_name(name)
