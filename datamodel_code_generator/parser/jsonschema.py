@@ -239,7 +239,7 @@ class JsonSchemaParser(Parser):
                 )
             else:
                 name = self.get_class_name(name, unique=False)
-                singular_name = get_singular_name(name)
+                singular_name = item.title or get_singular_name(name)
                 self.parse_object(singular_name, item)
                 data_types.append(
                     self.data_type(
@@ -343,7 +343,7 @@ class JsonSchemaParser(Parser):
                         )
                     ]
             elif field.enum:
-                enum = self.parse_enum(field_name, field)
+                enum = self.parse_enum(field.title or field_name, field)
                 field_types = [
                     self.data_type(type=enum.name, ref=True, version_compatible=True)
                 ]
@@ -399,7 +399,7 @@ class JsonSchemaParser(Parser):
                     )
                 )
             elif isinstance(item, JsonSchemaObject) and item.properties:
-                singular_name = get_singular_name(name)
+                singular_name = item.title or get_singular_name(name)
                 self.parse_object(singular_name, item)
                 item_obj_data_types.append(
                     self.data_type(
@@ -410,10 +410,10 @@ class JsonSchemaParser(Parser):
                 item_obj_data_types.extend(self.parse_any_of(name, item))
                 is_union = True
             elif item.allOf:
-                singular_name = get_singular_name(name)
+                singular_name = item.title or get_singular_name(name)
                 item_obj_data_types.extend(self.parse_all_of(singular_name, item))
             elif item.enum:
-                singular_name = get_singular_name(name, 'Enum')
+                singular_name = item.title or get_singular_name(name, 'Enum')
                 enum = self.parse_enum(singular_name, item)
                 item_obj_data_types.append(
                     self.data_type(type=enum.name, ref=True, version_compatible=True)
